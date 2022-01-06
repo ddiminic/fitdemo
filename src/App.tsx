@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import {  store } from "./store/store";
+import { Provider } from "react-redux";
+import { TopBar } from "./components/top-bar/top-bar";
+import { Sports } from "./screens/sports/sports";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Reservation } from "./screens/reservation/reservation";
+import Container from "@mui/material/Container";
+import { Loading } from "./components/loading";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Loading />
+      <div className="App">
+        <BrowserRouter>
+          <TopBar />
+          <Container>
+            <Routes>
+              <Route path="/" element={<Sports />} />
+              <Route path="/reservation" element={<Reservation />} />
+            </Routes>
+          </Container>
+        </BrowserRouter>
+      </div>
+    </Provider>
   );
 }
 
